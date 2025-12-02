@@ -1,0 +1,50 @@
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scholar-api-gateway-prod
+    ports:
+      - "8989:8989"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=8989
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+
+      # ---- Production JVM settings
+      - JAVA_TOOL_OPTIONS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=75 -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+UseStringDeduplication
+
+      # ---- WebFlux/Netty/Gateway resource knobs
+      - SPRING_MAIN_WEB_APPLICATION_TYPE=reactive
+      - SPRING_CODEC_MAX_IN_MEMORY_SIZE=16MB
+      - SPRING_CLOUD_GATEWAY_HTTPCLIENT_POOL_TYPE=fixed
+      - SPRING_CLOUD_GATEWAY_HTTPCLIENT_POOL_MAX_CONNECTIONS=500
+      - SPRING_CLOUD_GATEWAY_HTTPCLIENT_CONNECT_TIMEOUT=5000
+      - SPRING_CLOUD_GATEWAY_HTTPCLIENT_RESPONSE_TIMEOUT=30s
+      - SPRING_CLOUD_GATEWAY_HTTPCLIENT_WIRETAP=false
+
+    networks:
+      - scholarai-network
+    restart: always
+
+    # ---- Production resource caps
+    cpus: 2
+    mem_limit: 2g
+    mem_reservation: 1g
+    pids_limit: 512
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+networks:
+  scholarai-network:
+    external: true
+    name: docker_scholarai-network
