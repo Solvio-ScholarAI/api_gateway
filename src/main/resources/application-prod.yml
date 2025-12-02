@@ -48,7 +48,17 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowed-origins: "*"
+            allowed-origins:
+              - "http://localhost:3000"
+              - "https://localhost:3000"
+              - "http://127.0.0.1:3000"
+              - "https://127.0.0.1:3000"
+              - "http://70.153.18.56:3000"
+              - "https://70.153.18.56:3000"
+              - "http://scholarai.indonesiacentral.cloudapp.azure.com:3000"
+              - "https://scholarai.indonesiacentral.cloudapp.azure.com:3000"
+              - "https://scholarai.me"
+              - "https://scholarai.me:3000"
             allowed-methods:
               - GET
               - POST
@@ -76,11 +86,11 @@ spring:
 server:
   port: 8989
 
-# Eureka Client Configuration for Production
+# Eureka Client Configuration for Docker
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://service-registry:8761/eureka/}
     register-with-eureka: true
     fetch-registry: true
   instance:
@@ -95,30 +105,57 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus,metrics
+        include: health,info,prometheus,metrics,gateway
       base-path: /actuator
   endpoint:
     health:
-      show-details: when-authorized
+      show-details: always
       probes:
         enabled: true
+    gateway:
+      enabled: true
   metrics:
     tags:
       application: "${spring.application.name}"
   tracing:
-    enabled: true
+    enabled: false
     sampling:
-      probability: 0.1
+      probability: 1
 
 springdoc:
   api-docs:
-    enabled: false
+    enabled: true
+    path: /v3/api-docs
+  show-actuator: true
+  use-management-port: false
   swagger-ui:
-    enabled: false
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+    # Enable authorization persistence in browser
+    persistAuthorization: true
+    # Enable deep linking for swagger operations
+    deepLinking: true
+    # Display request duration in swagger UI
+    displayRequestDuration: true
+    # Enable filtering of operations
+    filter: true
+    # Show common extensions
+    showExtensions: true
+    # Sort operations alphabetically
+    operationsSorter: alpha
+    # Sort tags alphabetically
+    tagsSorter: alpha
+    # Enable try it out by default
+    tryItOutEnabled: true
+    # Custom configuration
+    disable-swagger-default-url: true
 
 logging:
   level:
     root: INFO
-    org.springframework.web: WARN
-    org.springframework.cloud.gateway: INFO
-    reactor.netty: WARN
+    org.springframework.web: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: DEBUG
+    org.springframework.security: DEBUG
