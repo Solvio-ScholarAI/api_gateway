@@ -185,7 +185,7 @@ spring.cloud.gateway.globalcors:
       allow-credentials: true
 ```
 
----
+----------------------------------------------
 
 ## ⚙️ **Configuration**
 
@@ -396,7 +396,7 @@ logging:
     org.springframework.web: DEBUG
 ```
 
----
+--------------------------------------------------
 
 ## 🚀 **Production Deployment**
 
