@@ -46,7 +46,7 @@
 - **Interactive Testing**: Built-in API testing interface
 - **Service Aggregation**: Single endpoint for all microservice APIs
 
-----------------------------------------
+----------------------------------------------------------
 
 ## 🚀 **Quick Start**
 
@@ -138,7 +138,7 @@ docker run -d --name scholar-api-gateway \
   scholar-api-gateway
 ```
 
----
+------------------------------------------------
 
 ## 🏗️ **Architecture**
 
