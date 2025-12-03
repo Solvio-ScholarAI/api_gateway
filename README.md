@@ -12,7 +12,7 @@
   [Quick Start](#-quick-start) · [API Documentation](#-api-documentation) · [Configuration](#-configuration) · [Monitoring](#-monitoring)
 </div>
 
----
+--------------------------------------
 
 ## ✨ **Core Features**
 
