@@ -60,7 +60,7 @@
 
 1. **Clone and Build**
    ```bash
-   git clone https://github.com/Javafest2025/api-gateway.git
+   git clone https://github.com/Solvio-ScholarAI/api-gateway.git
    cd api-gateway
    ./mvnw clean install
    ```
