@@ -566,13 +566,13 @@ logging:
 - Include gateway logs and service responses
 - Specify Java version and Spring Cloud version
 
----
+-------------------------------------------------------------------
 
 ## 📄 **License**
 
 This project is licensed under the **MIT License** - see the [LICENSE.md](LICENSE.md) file for details.
 
----
+--------------------------------------------------------------
 
 ## 🙏 **Acknowledgments**
 
@@ -581,7 +581,7 @@ This project is licensed under the **MIT License** - see the [LICENSE.md](LICENS
 - **Netflix OSS** for service discovery patterns
 - **Community Contributors** for feedback and improvements
 
----
+-----------------------------------------
 
 <div align="center">
   <p><strong>Built with ⚡ for the ScholarAI microservices ecosystem</strong></p>
